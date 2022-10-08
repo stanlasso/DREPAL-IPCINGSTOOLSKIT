@@ -1,0 +1,27 @@
+.pytest_cache
+.vscode
+ipcitoolskit/
+APP/data/Reference/*
+# ignore all logs
+APP/data/Reference/*.fasta
+APP/data/variants.varscan/Filterring/*.vcf
+APP/data/variants.varscan/*.mpileup
+APP/data/variants.varscan/Filterring/MATRICE/*.tsv
+APP/data/variants.varscan/Filterring/MatriceSNPS/*.tsv
+APP/data/variants.bcftools/*.vcf
+APP/data/variants.bcftools/Filterring/*.vcf
+APP/data/variants.bcftools/Filterring/*.gz
+APP/data/variants.bcftools/Filterring/*.tbi
+APP/data/variants.bcftools/Filterring/*.tsv
+APP/data/variants.bcftools/Filterring/*.bed
+APP/data/variants.bcftools/Filterring/MatriceSNPS/*
+APP/data/variants.bcftools/Filterring/MATRICE/*
+APP/data/Sam/*
+APP/data/intercep/*
+APP/data/Datafastq/unmapped/*
+APP/data/Datafastq/ResQC/*
+APP/data/Datafastq/KDSD/*
+APP/data/Datafastq/Fastqc/*
+APP/data/Datafastq/*.fastq
+APP/data/Bam/Mapped/*
+APP/data/Bam/*.bam
