@@ -35,25 +35,14 @@ IPCINGSTOOLKIT was built with streamlit python librairie  .....
 
 ## Installation
 
-### 1.  Root mode
-
-```
-sudo -i
-```
-```
-cd /home/xxxxxx/
-```
-go to **/home/xxxxxxx/** 
-- xxxxxx is current user path example : */home/stanlasso/
-
-### 2. IPCINGSTOOLKIT
+### 1. IPCINGSTOOLKIT
 
 To complete installation of IPCINGSTOOLKIT  clone the directory and enter it.
 
 ```
 git clone git@github.com:stanlasso/DREPAL-IPCINGSTOOLKIT.git
 ```
-### 3. Conda
+### 2. Conda
 
 This APP requires conda to be installed and available on the system.
 
@@ -72,6 +61,18 @@ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 ```
 sh Miniconda3-latest-Linux-x86_64.sh
 ```
+close and reopen terminal  
+
+### 3.  Root mode
+
+```
+sudo -i
+```
+```
+cd /home/xxxxxx/
+```
+go to **/home/xxxxxxx/** 
+- xxxxxx is current user path example : */home/stanlasso/
 
 ### 4. Make Bioinfo ENV
 ```
@@ -99,12 +100,18 @@ source myenv/bin/activate
 ```
 pip install -r requirments.txt
 ```
-### 6. Run APP
+
+### 6. make dir 
+```
+sh makedir.sh
+
+```
+### 7. Run APP
 ```
 streamlit run APP/app.py --server.maxUploadSize=4200
 
 ```
-### 7. Open Web Browser and Paste addresse
+### 8. Open Web Browser and Paste addresse
 *localhost:xxxx 
 - xxxx is a default port 
 

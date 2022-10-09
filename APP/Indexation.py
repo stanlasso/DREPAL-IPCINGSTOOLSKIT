@@ -91,9 +91,9 @@ def indexRef():
 
                         st.write("")
                         st.write("")
-                        st.markdown("""<p>Appuyer sur &nbsp;  <Kbd style="background:black;">R</Kbd> &nbsp;pour rafraichir la liste</p>""",unsafe_allow_html=True)
+                        st.markdown("""<p>Press &nbsp;  <Kbd style="background:black;">R</Kbd> &nbsp;to refresh the list</p>""",unsafe_allow_html=True)
                         if active==1:
-                            st.success("Indexation Effectuer !!")
+                            st.success("Carry out Successfully !!")
 
 
 

@@ -2,6 +2,7 @@
 .vscode
 ipcitoolskit/
 APP/data/Reference/*
+APP/__pycache__
 # ignore all logs
 APP/data/Reference/*.fasta
 APP/data/variants.varscan/Filterring/*.vcf

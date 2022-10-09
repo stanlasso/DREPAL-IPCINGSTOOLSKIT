@@ -90,7 +90,7 @@ def subtrac():
                                         if err == None:
                                             with st.container():
                                                 st.success(
-                                                    'Effectuer Avec Succès')
+                                                    'Carry out Successfully')
                                         else:
                                             st.write("PROBLEM !!")
                                     else:

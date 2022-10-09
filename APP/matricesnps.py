@@ -145,7 +145,7 @@ def Matrix():
                         heatmap.update_xaxes(side="top")
                         st.plotly_chart(heatmap)
 
-    st.info("Voulez crée des fichiers vcf intercept...")
+    st.info("Want to create vcf intercept files...")
     filematrice= user+"/APP/data/variants.bcftools/Filterring/MatriceSNPS/MATRICE.tsv"
     filematrice2= user+"/APP/data/variants.varscan/Filterring/MatriceSNPS/MATRICE.tsv"
     if Path(filematrice).is_file() == True and  Path(filematrice2).is_file() == True:
@@ -170,9 +170,9 @@ def Matrix():
                             file_name="vcfileIntersect",
                             mime="file/vcf")
             else:
-                st.write("non existent")
+                st.write("no exist")
     else:
-        st.write('Verifier que les matrices de snps ont été generées ...')
+        st.write('Verify that the snps matrices have been generated ...')
     
 
 
