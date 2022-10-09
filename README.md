@@ -21,8 +21,8 @@ Dependencies:
 The IPCINGSTOOLKIT APP contains a pipeline requires the following dependencies:
 
 * Fastp
-* sickle
-* Fastqc 
+* Fastqc
+* SeqPrep
 * BWA 
 * Samtools
 * Bcftools
@@ -71,13 +71,6 @@ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 
 ```
 sh Miniconda3-latest-Linux-x86_64.sh
-```
-
-#### MacOS
-
-  To obtain the installer for MacOS, you can [download](https://docs.conda.io/en/latest/miniconda.html) it manually or use wget:
-```
-wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh
 ```
 
   Then, install miniconda,
