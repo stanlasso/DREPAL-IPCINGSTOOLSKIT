@@ -226,7 +226,7 @@ def qualtity():
                     with st.container():
                         st.text("")
                         if st.button("Apply"):
-                                program1,program2 = "fastp","sickle"
+                                program1,program2 = "fastp","SeqPrep"
                                 process1,process2 = subprocess. run(['which', program1], capture_output=True, text=True),subprocess.run(['which', program2], capture_output=True, text=True)
                                 # au cas ou le programme existe
                                 if process1.returncode == 0 and process2.returncode == 0:

@@ -184,7 +184,7 @@ def appconnect():
             st.markdown("""""")
             st.markdown("""<h1>IPCI NGS TOOLKIT</h1>""",
                         unsafe_allow_html=True)
-            st.image("/home/user/IPCITOOLSKIT/APP/img/5139810.jpg")
+            st.image("APP/img/5139810.jpg")
             with st.container():
                 st.markdown("""<h4 style="width:100%;text-align:left;">IPCI NGS TOOLKIT </h4> <br> <p style="text-align:justify;"> IPCI NGS TOOLKITS is an application developed within the framework of the "DREPAL" project carried out by the Parasitology Department of the Institut Pasteur de Cote d'Ivoire (IPCI) for the analysis of NGS data. It is a software toolbox composed of stand-alone options or organized as a pipeline for quality control, which remains a crucial step in various downstream analyses. The detection of SNP (Simple Nucleotide Polymorphism), INDELs (INsertion/DELetion) mutations and the elaboration of mutation matrix carried by several samples.</p>""", unsafe_allow_html=True)
 
@@ -291,7 +291,7 @@ def appconnect():
                                                     out5, err5 = process5.communicate()
                                                     if err5 == None:
                                                         bashcmdsave = [
-                                                            "mv -p {}".format("/home/user/IPCITOOLSKIT/APP/data"+" "+projectdir)]
+                                                            "mv -p {}".format("APP/data"+" "+projectdir)]
                                                         processsave = subprocess.Popen(
                                                             bashcmdsave, stdout=subprocess.PIPE, text=True, shell=True)
                                                         outsave, errsave = process5.communicate()
