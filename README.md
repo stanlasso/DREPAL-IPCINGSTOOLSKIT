@@ -69,10 +69,10 @@ close and reopen terminal
 sudo -i
 ```
 ```
-cd /home/xxxxxx/
+cd /home/xxxxxx/DREPAL-IPCITOOLSKIT
 ```
-go to **/home/xxxxxxx/** 
-- xxxxxx is current user path example : */home/stanlasso/
+go to **/home/xxxxxxx/DREPAL-IPCITOOLSKIT 
+- xxxxxx is current user path example : */home/stanlasso/DREPAL-IPCITOOLSKIT
 
 ### 4. Make Bioinfo ENV
 ```
@@ -111,7 +111,14 @@ sh makedir.sh
 streamlit run APP/app.py --server.maxUploadSize=4200
 
 ```
-### 8. Open Web Browser and Paste addresse
+
+### 9. Use chromiun on unbutu open new terminal 
+```
+sudo snap install chromium
+
+```
+
+### 8. Open Web Browser (CHROMIUM*) and Paste addresse
 *localhost:xxxx 
 - xxxx is a default port 
 
