@@ -12,7 +12,7 @@ IPCINGSTOOLKIT was developed to aid in the analysis of next generation sequencin
 * Split bam files into forward and reverse reads.
 * Generate VCF file
 * Get SNPs Matrix
-* Annotated Variants [in process]
+* Annotated Variants
 * Export and Clean Directory
 
 
@@ -78,7 +78,7 @@ go to **/home/xxxxxxx/DREPAL-IPCITOOLSKIT
 conda env create -f DEVAPP.yml
 ```
 ```
-conda activate DEVAPP
+conda activate NewENV
 ```
 
 ### 5.Make and activate streamlit ENV
@@ -108,12 +108,6 @@ sh makedir.sh
 ### 7. Run APP
 ```
 streamlit run APP/app.py --server.maxUploadSize=4200
-
-```
-
-### 9. Use chromiun on unbutu open new terminal 
-```
-sudo snap install chromium
 
 ```
 
