@@ -95,14 +95,6 @@ def visualisation():
                         process = subprocess.Popen(bashCmd, stdout=subprocess.PIPE, text=True,shell=True)
                         out, err = process.communicate()
                         if err == None:
-                            with st.container():
-                                    st.text("Bash output :")
-                                    effectif = out.split(sep="\n")[:-1]
-                                    for elt in effectif:
-                                        st.markdown("""
-                                        <p style="font-size:14px;"><span style="color:black;font-family: monospace;"><strong>{}</strong></span> <span style="font-weight: bold;color:rgb(26, 121, 2);"> &nbsp;------[ <i class="fa fa-check-circle"></i> OK ]</span></p>
-                                        """.format(elt), 
-                                        unsafe_allow_html=True)
                             st.success("Treatment Completed Successfully !!!")
                     else:
                         st.markdown(
@@ -153,17 +145,9 @@ def visualisation():
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+#####################################################################################
+### NEW QUALITY MANAGEMENT
+#####################################################################################
 
 
 
@@ -189,7 +173,6 @@ def qualtity():
             st.text('')
             if err == None:
                 if int(out) != 0:
-                    forwardadpt,reverseadpt="CTGTCTCTTATA","CTGTCTCTTATA"
                     with st.container():
                         st.markdown("-  Enter the basic number to be deleted at the beginning of the read files : ")
                         col1,col2=st.columns(2)
@@ -215,35 +198,27 @@ def qualtity():
                             qualite = st.number_input("Minimal quality",step=1)
 
                     with st.container():
-                        adapt = st.checkbox('remove adaptaters')
-                        if adapt:
-                            col9,col10 = st.columns(2)
-                            with col9:
-                                forwardadpt = st.text_input('forward adaptater')
-                            with col10:
-                                reverseadpt = st.text_input('reverse adaptater')
-                        
-                    with st.container():
                         st.text("")
                         if st.button("Apply"):
-                                program1,program2 = "fastp","SeqPrep"
-                                process1,process2 = subprocess. run(['which', program1], capture_output=True, text=True),subprocess.run(['which', program2], capture_output=True, text=True)
+                                program1,program2 = 'cutadapt',"trim_galore"
+                                process1,process2 = subprocess.run(['which', program1], capture_output=True, text=True),subprocess.run(['which', program2], capture_output=True, text=True)
                                 # au cas ou le programme existe
                                 if process1.returncode == 0 and process2.returncode == 0:
                                     file = user+"/APP/data/Datafastq/ResQC/"
                                     if os.path.exists(r'{}'.format(file)) == True:
                                         bashCmd = ["ls APP/data/Datafastq/*fastq | wc -l"]
                                         process = subprocess.Popen(bashCmd, stdout=subprocess.PIPE, text=True, shell=True)
-                                        out, err = process.communicate()
-                                        if err == None:
-                                            if int(out) != 0:
+                                        out1, err1 = process.communicate()
+                                        if err1 == None:
+                                            if int(out1) != 0:
                                                 #st.markdown(
                                                 #    """<p style="color:rgb(22, 22, 22);font-weight:600;font-size:14px;">Number of sequences :&nbsp;<strong>{}</strong></p>""".format(str(out)),
                                                 #    unsafe_allow_html=True)
-                                                bashCmd1 = ["bash  APP/bashScripts/gestion.sh  {}  {}  {}  {}  {}  {}  {}  {} {} {}".format("APP/data/Datafastq/*fastq",str(debutForward),str(debutReverse),str(finForward),str(finReverse),str(readinconue),str(longueurmin),str(qualite),str(forwardadpt),str(reverseadpt))]
+                                                bashCmd1 = ["bash  APP/bashScripts/gestion.sh  {}  {}  {}  {}  {}  {}  {}  {}".format("APP/data/Datafastq/*fastq",str(debutForward),str(debutReverse),str(finForward),str(finReverse),str(readinconue),str(longueurmin),str(qualite))]
                                                 process3 = subprocess.Popen(bashCmd1, stdout=subprocess.PIPE, text=True,shell=True)
-                                                out, err = process3.communicate()
-                                                if err == None:
+                                                out3, err3 = process3.communicate()
+                                                st.write(out3)
+                                                if err3 == None:
                                                     with st.container():
                                                         #st.write(out)
                                                         st.success('Effectuer Avec Succès')

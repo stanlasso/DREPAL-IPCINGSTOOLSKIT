@@ -6,6 +6,9 @@
 #
 #######################################################
 
+rm -rf APP/data/Bam/Mapped/*bam*
+
+
 Nbargument=$#
 i=0
 Pathogene=${@: -1}
@@ -37,10 +40,9 @@ do
     
     prefix=$(echo $chemin | cut -d'_' -f 1)
     
-    bwa mem $Pathogene ${tab[$j-1]} ${tab[$j]} -o APP/data/Sam/"${prefix}"_Patho_align.sam
-    
+    bwa mem -M -R "@RG\tID:${prefix}\tSM:${prefix}\tLB:${prefix}\tPL:ILLUMINA" $Pathogene ${tab[$j-1]} ${tab[$j]} -o APP/data/Sam/"${prefix}"_Patho_align.sam
     samtools view -Sb -F0x4 APP/data/Sam/"${prefix}"_Patho_align.sam > APP/data/Bam/Mapped/"${prefix}"_Patho_mapped.bam 
-     
+         
     
 done
 

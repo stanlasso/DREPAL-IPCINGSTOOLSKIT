@@ -19,6 +19,11 @@ do
     tab[$i]="$read"
 done
 
+echo "---------------------------------------"
+
+echo $read
+
+echo '--------------------------------------'
 # initialisation
 j=0
 #Tantque la variable j est inférieur ou égale à la taille du tableau
@@ -60,8 +65,8 @@ do
 
 done
 
-bcftools merge --force-samples APP/data/variants.bcftools/Filterring/*filtered_snps.vcf.gz > APP/data/variants.bcftools/Filterring/01.vcf
-bcftools view APP/data/variants.bcftools/Filterring/01.vcf | bcftools query -f '%CHROM\t%POS\t%REF\n' >> APP/data/variants.bcftools/Filterring/01snps.tsv
+bcftools merge --force-samples APP/data/variants.bcftools/Filterring/*filtered_snps.vcf.gz > APP/data/variants.bcftools/Filterring/01bcf.vcf
+bcftools view APP/data/variants.bcftools/Filterring/01bcf.vcf | bcftools query -f '%CHROM\t%POS\t%REF\n' >> APP/data/variants.bcftools/Filterring/01snps.tsv
 sort +1 -n APP/data/variants.bcftools/Filterring/01snps.tsv | uniq >> APP/data/variants.bcftools/Filterring/01snps_sorted.tsv
 
 cut -f 1 APP/data/variants.bcftools/Filterring/01snps_sorted.tsv >> APP/data/variants.bcftools/Filterring/Chromosones.tsv

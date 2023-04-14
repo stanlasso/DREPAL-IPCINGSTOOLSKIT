@@ -48,7 +48,7 @@ def indexRef():
                     filenames = os.listdir(file)
                     Refereces = ["-- Choice of a Reference"]
                     for element in filenames:
-                        if ".bwt" not in str(element) and ".pac" not in str(element) and ".ann" not in str(element) and ".sa" not in str(element) and ".amb" not in str(element) and ".fai" not in str(element):
+                        if ".bwt" not in str(element) and ".pac" not in str(element) and ".ann" not in str(element) and ".sa" not in str(element) and ".amb" not in str(element) and ".fai" not in str(element) and ".dict" not in str(element):
                             Refereces.append(element)
                 
                     index=[]

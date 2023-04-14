@@ -1,3 +1,4 @@
+rm -f APP/data/gatkfile/Filterring/01bcf.vcf
 rm -rf APP/data/variants.bcftools/Filterring/*.tsv && rm -rf APP/data/variants.bcftools/Filterring/*gz
 rm -rf APP/data/variants.bcftools/Filterring/MATRICE/*.tsv && rm -rf APP/data/variants.bcftools/Filterring/MatriceSNPS/MATRICE.tsv
 bash APP/data/variants.bcftools/Filterring/generation.sh APP/data/variants.bcftools/Filterring/*_filtered_snps.vcf

@@ -52,10 +52,10 @@ def sequence():
                     nboccurence =Counter(name).most_common()
                     for el in nboccurence:
                         if el[1] !=2:
-                            if os.path.exists("APP/data/Datafastq/"+el[0]+"_1.fastq"):
-                                os.remove("APP/data/Datafastq/"+el[0]+"_1.fastq")
-                            if os.path.exists("APP/data/Datafastq/"+el[0]+"_2.fastq"):
-                                os.remove("APP/data/Datafastq/"+el[0]+"_2.fastq")
+                            if os.path.exists("APP/data/Datafastq/"+el[0]+"_R1.fastq"):
+                                os.remove("APP/data/Datafastq/"+el[0]+"_R1.fastq")
+                            if os.path.exists("APP/data/Datafastq/"+el[0]+"_R2.fastq"):
+                                os.remove("APP/data/Datafastq/"+el[0]+"_R2.fastq")
                             st.error("Error ! Missing file please re-import the pairs of sequence : "+str(el[0]))
                             continue
                         
@@ -70,7 +70,7 @@ def sequence():
                 st.write("Number of files counted {}".format(str(out)))
                 st.info("make sure your directory contains only Fastq files ")
                 if st.button("Deplacer"):
-                    bashCmd2 = ["cp {} {}".format(str(chemin+"/*.fastq"),str(user+"/APP/data/Datafastq/"))]
+                    bashCmd2 = ["mv {} {}".format(str(chemin+"/*.fastq"),str(user+"/APP/data/Datafastq/"))]
                     process2 = subprocess.Popen(bashCmd2, stdout=subprocess.PIPE, text=True, shell=True)
                     out, err = process2.communicate()
             

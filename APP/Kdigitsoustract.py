@@ -45,8 +45,8 @@ def kdsd():
                 filenames = os.listdir(file)
                 fastqliste = ["---Index Fastq"]
                 for element in filenames:
-                    if "_1.fastq" in str(element):
-                        fastqliste.append(element[:-8])
+                    if ".fastq" in str(element):
+                        fastqliste.append(element[:-9])
                 
 
     if process.returncode == 0 and process2.returncode == 0 and process3.returncode == 0:
@@ -103,8 +103,8 @@ def kdsd():
                             processrm = subprocess.Popen(bashCmdrm, stdout=subprocess.PIPE, text=True, shell=True)
                             out2,err2=processrm.communicate()
                             if err2 == None:
-                                bashCmdcp1 = ["cp APP/data/Datafastq/{} APP/data/Datafastq/KDSD/".format(str(option)+"_1.fastq")]
-                                bashCmdcp2 = ["cp APP/data/Datafastq/{} APP/data/Datafastq/KDSD/".format(str(option)+"_2.fastq")]
+                                bashCmdcp1 = ["cp APP/data/Datafastq/{} APP/data/Datafastq/KDSD/".format(str(option)+"_R1.fastq")]
+                                bashCmdcp2 = ["cp APP/data/Datafastq/{} APP/data/Datafastq/KDSD/".format(str(option)+"_R2.fastq")]
                                 processcp = subprocess.Popen(bashCmdcp1, stdout=subprocess.PIPE, text=True, shell=True)
                                 processcp1 = subprocess.Popen(bashCmdcp2, stdout=subprocess.PIPE, text=True, shell=True)
                                 out0,err0=processcp1.communicate()

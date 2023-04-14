@@ -1,5 +1,7 @@
 .pytest_cache
 .vscode
+.ipynb_checkpoints
+APP/data/variants.varscan
 ipcitoolskit/
 APP/data/Reference/*
 APP/__pycache__
@@ -26,3 +28,4 @@ APP/data/Datafastq/Fastqc/*
 APP/data/Datafastq/*.fastq
 APP/data/Bam/Mapped/*
 APP/data/Bam/*.bam
+APP/__pycache__

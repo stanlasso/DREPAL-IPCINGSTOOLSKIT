@@ -1,10 +1,17 @@
 #!/bin/sh
 # Ce script permet de faire du Variants Calling
-rm -rf APP/data/Bam/Mapped/*AORRG.bam && rm -rf APP/data/Bam/Mapped/*.sorted.bam && rm -rf APP/data/Bam/Mapped/*.sorted.dedup.bam
 
 Nbargument=$#
 i=0
 Pathogene=${@: -1}
+
+# remove precedent files
+delete_other=$(find ./APP/data/Bam/Mapped/ -maxdepth 1 ! -name "*.bam" -type f)
+
+for file in $delete_other
+do
+    rm "$file"
+done
 
 ## Traitement
 declare -a tab
@@ -33,7 +40,6 @@ do
     
     prefix=$(echo $chemin | cut -d'.' -f 1)
     id=$(echo $chemin | cut -d'_' -f 1)
-    
     
     picard AddOrReplaceReadGroups I=$Input O=APP/data/Bam/Mapped/"$prefix"_AORRG.bam RGLB=ipci RGPL=ILLUMINA RGPU=bioinfo RGSM=20 RGID="$id"
     

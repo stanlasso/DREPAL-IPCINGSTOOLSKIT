@@ -8,9 +8,7 @@
 for read in "$@"
 do
 
-echo indexation de $read veuillez patienter ....
+echo "indexation de $read veuillez patienter ...."
 # indexation de la reference avec bwa
-bwa index $read  &> /dev/null
-
-
+bwa index $read
 done

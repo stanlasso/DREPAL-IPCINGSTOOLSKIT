@@ -20,13 +20,12 @@ Dependencies:
 
 The IPCINGSTOOLKIT APP contains a pipeline requires the following dependencies:
 
-* Fastp
 * Fastqc
-* SeqPrep
+* trim-galore
 * BWA 
 * Samtools
 * Bcftools
-* Varscan
+* GATK
 * Picard
 * Bebtools
 * bgzip and tabix 

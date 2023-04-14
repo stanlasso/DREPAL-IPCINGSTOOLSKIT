@@ -42,8 +42,7 @@ do
     
     prefix=$(echo $chemin | cut -d'.' -f 1)
     id=$(echo $chemin | cut -d'_' -f 1)
-    
-    
+        
     picard AddOrReplaceReadGroups I=$Input O=APP/data/Bam/Mapped/"$prefix"_AORRG.bam RGLB=ipci RGPL=ILLUMINA RGPU=bioinfo RGSM=20 RGID="$id"
     
     picard SortSam I=APP/data/Bam/Mapped/"$prefix"_AORRG.bam O=APP/data/Bam/Mapped/"$prefix".sorted.bam VALIDATION_STRINGENCY=SILENT SORT_ORDER=coordinate CREATE_INDEX=true TMP_DIR=100

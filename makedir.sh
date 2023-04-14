@@ -1,4 +1,4 @@
-mkdir -p APP/data/Bam/Mapped
+mkdir -p APP/data/Bam/Mapped/BamGATK
 mkdir -p APP/data/Datafastq/Fastqc
 mkdir -p APP/data/Datafastq/KDSD
 mkdir -p APP/data/Datafastq/ResQC
@@ -8,5 +8,7 @@ mkdir -p APP/data/Reference
 mkdir -p APP/data/Sam
 mkdir -p APP/data/variants.bcftools/Filterring/MATRICE
 mkdir -p APP/data/variants.bcftools/Filterring/MatriceSNPS
-mkdir -p APP/data/variants.varscan/Filterring/MATRICE
-mkdir -p APP/data/variants.varscan/Filterring/MatriceSNPS
+mkdir -p APP/data/variants.bcftools/Filterring/filteredType
+mkdir -p APP/data/gatkfile/{Filterring/MATRICE,metrics,recal,vcffile}
+mkdir -p APP/data/Annoted/AnnotatedFILEbyFILE/singlefilerepport
+mkdir -p APP/data/Annoted/report
