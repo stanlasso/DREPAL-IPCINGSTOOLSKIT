@@ -26,7 +26,6 @@ echo $directory
 
 if [[ "$directory" == "bcftools" ]];
 then
-    echo "enter"
     for read in "${var[@]}"
     do
       bgzip $read
@@ -37,7 +36,6 @@ then
     rm -rf APP/data/variants.bcftools/Filterring/*.tbi
 
 else
-    echo "no enter"
     for read in "${var[@]}"
     do
       bgzip $read

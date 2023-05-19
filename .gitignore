@@ -29,3 +29,25 @@ APP/data/Datafastq/*.fastq
 APP/data/Bam/Mapped/*
 APP/data/Bam/*.bam
 APP/__pycache__
+User
+Session Storage
+myenv
+logs
+Local Storage
+Local Storage
+GPUCache
+Dictionaries
+Crashpad
+Code Cache
+CachedData
+CachedProfilesData
+Cache
+blob_storage
+100
+Cookies
+Cookies-journal
+languagepacks.json
+machineid
+Network Persistent State
+Preferences
+TransportSecurity

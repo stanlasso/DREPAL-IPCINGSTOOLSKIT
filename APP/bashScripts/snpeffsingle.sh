@@ -35,11 +35,10 @@ do
     prefix=$(echo $chemin | cut -d'.' -f 1)
     id=$(echo $chemin | cut -d'_' -f 1)
     idfinal=$(echo $id | cut -d'/' -f 4)    
-    echo $Input
-    echo $idfinal
+    idname=$(echo $id | cut -d'/' -f 6)    
 
-    java -Xmx4g -jar APP/snpEff/snpEff.jar $Genome $Input > APP/data/Annoted/AnnotatedFILEbyFILE/"$idfinal"_Annotated.vcf
+    java -Xmx4g -jar APP/snpEff/snpEff.jar $Genome $Input > APP/data/Annoted/AnnotatedFILEbyFILE/"$idname"_"$idfinal"_Annotated.vcf
 
-    mv snpEff_genes.txt "$idfinal"_genes.txt && mv "$idfinal"_genes.txt APP/data/Annoted/AnnotatedFILEbyFILE/singlefilerepport/
-    mv snpEff_summary.html "$idfinal"_summary.html && mv "$idfinal"_summary.html APP/data/Annoted/AnnotatedFILEbyFILE/singlefilerepport/  
+    mv snpEff_genes.txt "$idname"_"$idfinal"_genes.txt && mv "$idname"_"$idfinal"_genes.txt APP/data/Annoted/AnnotatedFILEbyFILE/singlefilerepport/
+    mv snpEff_summary.html "$idname"_"$idfinal"_summary.html && mv "$idname"_"$idfinal"_summary.html APP/data/Annoted/AnnotatedFILEbyFILE/singlefilerepport/  
 done

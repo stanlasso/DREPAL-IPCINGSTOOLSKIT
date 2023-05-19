@@ -1,6 +1,8 @@
 #!/bin/sh
 # Ce script permet de faire du Variants Calling bcftools samtools
 
+rm -f APP/data/variants.bcftools/*.vcf*
+rm -f APP/data/freebayesfile/mergevcffile/*
 Nbargument=$#
 bamfileoccurence=`expr $Nbargument - 2`
 # remove precedent files
@@ -26,6 +28,9 @@ done
 #echo "${tab[@]:0:$bamfileoccurence}"
 Ploidy="${tab[-1]}"
 Pathogene="${tab[-2]}"
+
+echo $Ploidy
+echo $Pathogene
 
 # initialisation
 
@@ -53,14 +58,18 @@ do
 
     
     bcftools mpileup -Ovu -f $Pathogene APP/data/Bam/Mapped/"$prefix".sorted.dedup.bam > APP/data/variants.bcftools/"$id"_genotypes.vcf
-    # appel des variants
-    
-    bcftools call --ploidy $Ploidy -vm -Ov APP/data/variants.bcftools/"$id"_genotypes.vcf > APP/data/variants.bcftools/"$id"_variants.vcf
     
     # gestion de la ploidy
+    bcftools call --ploidy $Ploidy -vm -Ov APP/data/variants.bcftools/"$id"_genotypes.vcf > APP/data/variants.bcftools/"$id"_variants.vcf
+    
     
     bcftools norm -m+ -c ws -f $Pathogene APP/data/variants.bcftools/"$id"_variants.vcf > APP/data/variants.bcftools/"$id"_normalized.vcf   
     
+    bgzip -c APP/data/variants.bcftools/"$id"_normalized.vcf  > APP/data/variants.bcftools/mergevcffile/"$id"_normalized.gz
+    
+    tabix -p vcf APP/data/variants.bcftools/mergevcffile/"$id"_normalized.gz
 done
+bcftools merge --force-samples  APP/data/variants.bcftools/mergevcffile/*.gz > APP/data/variants.bcftools/mergevcffile/merge.vcf
+
 mv marked_dup_metrics.txt APP/data/variants.bcftools/metrics/
 rm -rf 100

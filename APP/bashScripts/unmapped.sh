@@ -48,11 +48,11 @@ do
     
     samtools view -Sb -f0x4 APP/data/Sam/"${prefix}".sam  > APP/data/Bam/"${prefix}"_Human_unmapped.bam 
 
-    samtools bam2fq -1 APP/data/Datafastq/"${prefix}"_Human_umapped_R1.fastq -2 APP/data/Datafastq/"${prefix}"_Human_umapped_R2.fastq -0 /dev/null -s /dev/null -n -F 0x900 APP/data/Bam/"${prefix}"_Human_unmapped.bam
+    samtools bam2fq -1 APP/data/Datafastq/"${prefix}"_Human_unmapped_R1.fastq -2 APP/data/Datafastq/"${prefix}"_Human_unmapped_R2.fastq -0 /dev/null -s /dev/null -n -F 0x900 APP/data/Bam/"${prefix}"_Human_unmapped.bam
 done
 
-mv APP/data/Datafastq/*Human_umapped_R1.fastq APP/data/Datafastq/unmapped
-mv APP/data/Datafastq/*Human_umapped_R2.fastq APP/data/Datafastq/unmapped
+mv APP/data/Datafastq/*Human_unmapped_R1.fastq APP/data/Datafastq/unmapped
+mv APP/data/Datafastq/*Human_unmapped_R2.fastq APP/data/Datafastq/unmapped
 
 
 

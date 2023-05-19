@@ -40,11 +40,6 @@ do
     chemin=${Input:38} #pour chemin plus long dans script finale
     #echo "$chemin"
     prefix=$(echo $chemin | cut -d'_' -f 1)
-
-    bgzip -c APP/data/variants.bcftools/Filterring/"$prefix"_filtered_snps.vcf  > APP/data/variants.bcftools/Filterring/"$prefix"_filtered_snps.vcf.gz
-
-    tabix -p vcf  APP/data/variants.bcftools/Filterring/"$prefix"_filtered_snps.vcf.gz
-
     # merge des sorties en une seul des chromosones...positions...references...alternatifs pour chacun des individus: 
     bcftools view APP/data/variants.bcftools/Filterring/"$prefix"_filtered_snps.vcf | bcftools query -f '%CHROM\t%POS\t%REF\t%ALT\n' | sort +1 -n  >> APP/data/variants.bcftools/Filterring/"$prefix"_CPRA.tsv
 

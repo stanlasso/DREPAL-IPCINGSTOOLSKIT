@@ -24,6 +24,7 @@ do
         tab[$i]="$read"
     fi
 done
+samtools faidx $Pathogene
 
 j=0
 #Tantque la variable j est inférieur ou égale à la taille du tableau

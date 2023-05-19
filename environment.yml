@@ -1,13 +1,15 @@
 name: NewENV
 channels:
   - bioconda/label/cf201901
-  - bioconda
   - defaults
+  - bioconda
+  - conda-forge
 dependencies:
   - _libgcc_mutex=0.1=main
   - _openmp_mutex=5.1=1_gnu
   - bcftools=1.9=ha228f0b_4
   - bedtools=2.30.0=h7d7f7ad_2
+  - biopet-vcffilter=0.2=hdfd78af_1
   - bwa=0.7.17=h5bf99c6_8
   - bz2file=0.98=py37h06a4308_1
   - bzip2=1.0.8=h7b6447c_0
@@ -21,6 +23,7 @@ dependencies:
   - fastqc=0.11.9=hdfd78af_1
   - font-ttf-dejavu-sans-mono=2.37=hd3eb1b0_0
   - fontconfig=2.13.1=hef1e5e3_1
+  - freebayes=0.9.21.7=0
   - freetype=2.12.1=h4a9f257_0
   - gatk4=4.0.12.0=0
   - glib=2.63.1=h5a9c865_0
@@ -58,8 +61,9 @@ dependencies:
   - tk=8.6.12=h1ccaba5_0
   - trim-galore=0.6.7=hdfd78af_0
   - varscan=2.4.4=hdfd78af_1
+  - vcflib=1.0.0_rc3=py37hc088bd4_0
   - wheel=0.37.1=pyhd3eb1b0_0
   - xopen=0.7.3=py_0
   - xz=5.2.6=h5eee18b_0
   - zlib=1.2.13=h5eee18b_0
-prefix: /home/user/miniconda3/envs/NewENV
+prefix: /home/ipci/miniconda3/envs/NewENV

@@ -8,13 +8,13 @@ def annotated():
     merge = ''
     user = str(os.getcwd())
     filevcf = ""
-    filevcfdownload = ""
+    filereport = ""
     st.write("")
-    if os.path.exists("APP/snpEff/SnpSift.jar") == True:
-        st.info("Exclusive SNPEFF Plasmodium Falcipharum annoted")
+    st.info("Exclusive SNPEFF Plasmodium Falcipharum annoted")
+    if os.path.exists("APP/snpEff/SnpSift.jar") == True and os.path.exists("APP/snpEff/snpEff.jar") == True:
         Genome = "Pf3D7"
         opt = st.radio("choose the option  used for vcf generation", [
-                       'gatk', "bcftools"])
+                       'gatk', "bcftools","freebayes"])
         if opt == "gatk":
             filevcf = user+"/APP/data/gatkfile/Filterring"
             filegetvcf = os.listdir(filevcf)
@@ -31,28 +31,41 @@ def annotated():
                 if ".vcf" in element:
                     vcf.append(element)
         else:
-            filevcf = "none"
+            filevcf = user+"/APP/data/freebayesfile/Filterring"
+            filegetvcf = os.listdir(filevcf)
+            vcf = []
+            for element in filegetvcf:
+                if ".vcf" in element:
+                    vcf.append(element)
 
+        
         merge = st.checkbox('merge vcf file')
         run = st.button('Run')
-        if merge == True and run == True:
+        if merge == True and run == True and opt != 'freebayes':
             bashCmd = [
                 "bash APP/bashScripts/merge.sh {} {}".format(str(opt),filevcf+"/_filtered_snps.vcf")]
             process = subprocess.Popen(
                 bashCmd, stdout=subprocess.PIPE, text=True, shell=True)
             out, err = process.communicate()
-            st.write(err)
             if err == None:
                 bashcommandannoted = [
                     'bash APP/bashScripts/snpeff.sh {} {}'.format(Genome, "APP/data/Annoted/merge.vcf")]
                 process = subprocess.Popen(
                     bashcommandannoted, stdout=subprocess.PIPE, text=True, shell=True)
                 outannotated, erranotated = process.communicate()
-        if merge == False and run == True:
-            bashcommandannoted = ['bash APP/bashScripts/snpeffsingle.sh {} {}'.format(filevcf+"/*_filtered_snps.vcf", Genome)]
+        if merge == True and run == True and opt == 'freebayes':
+            bashcommandannoted = [
+                'bash APP/bashScripts/snpeff.sh {} {}'.format(Genome, "APP/data/freebayesfile/Filterring/mergefile/merge_snp.vcf")]
             process = subprocess.Popen(
                 bashcommandannoted, stdout=subprocess.PIPE, text=True, shell=True)
             outannotated, erranotated = process.communicate()
+
+        if merge == False and run == True:
+            bashcommandannoted = ['bash APP/bashScripts/snpeffsingle.sh {} {}'.format(filevcf+"/*_snps.vcf", Genome)]
+            process = subprocess.Popen(
+                bashcommandannoted, stdout=subprocess.PIPE, text=True, shell=True)
+            outannotated, erranotated = process.communicate()
+            st.write(outannotated)
 
     list1 = os.listdir("APP/data/Annoted/AnnotatedFILEbyFILE/")
     list1.pop(list1.index("singlefilerepport"))
@@ -74,16 +87,10 @@ def annotated():
                     bashsnpsift, stdout=subprocess.PIPE, text=True, shell=True)
                 outsnpsift, errsnpsift = process.communicate()
 
-    if opt == 'gatk' and merge == False:
+    if opt == 'gatk' or opt == 'bcftools' or opt=='freebayes' and merge == False:
         filevcfdownload = user+"/APP/data/Annoted/AnnotatedFILEbyFILE"
         filereport = user+"/APP/data/Annoted/AnnotatedFILEbyFILE/singlefilerepport"
-    elif opt == 'gatk' and merge == True:
-        filevcfdownload = user+"/APP/data/Annoted"
-        filereport = user+"/APP/data/Annoted/report"
-    elif opt == 'bcftools' and merge == False:
-        filevcfdownload = user+"/APP/data/Annoted/AnnotatedFILEbyFILE"
-        filereport = user+"/APP/data/Annoted/AnnotatedFILEbyFILE/singlefilerepport"
-    elif opt == 'bcftools' and merge == True:
+    elif opt == 'gatk'  or opt == 'bcftools' or opt=="freebayes" and merge == True:
         filevcfdownload = user+"/APP/data/Annoted"
         filereport = user+"/APP/data/Annoted/report"
     else:

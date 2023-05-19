@@ -6,8 +6,7 @@
 
 # initialisation
 
-rm -f APP/data/variants.bcftools/Filterring/filteredType/*
-rm -f APP/data/variants.bcftools/Filterring/*vcf*
+rm -f APP/data/variants.bcftools/Filterring/mergefile/*
 rm -f APP/data/variants.bcftools/metrics/*
 
 #echo $@
@@ -36,7 +35,7 @@ Qual=${var[-2]}
 Dp=${var[-1]}
 
 
-#echo ${tab[@]}
+echo ${tab[@]}
 # echo ${var[@]}
 # echo $types
 # echo $Qual
@@ -52,24 +51,19 @@ while [ "$j" -lt "${#tab[@]}" ]
     then
         let j=j+1
         Input=${tab[$j]}
-        prefix=$(echo $Input | cut -d'_' -f 1)
-        echo $prefix
-        bcftools view ${tab[$j]}  >> "$prefix"-"$types".vcf
+        bcftools view ${tab[$j]}  > APP/data/variants.bcftools/Filterring/mergefile/merge_"$types".vcf
         sleep 2
-        bcftools filter -e "QUAL<$Qual || INFO/DP<$Dp"  "$prefix"-"$types".vcf >> "$prefix"_filtered_"$types".vcf
+        bcftools filter -e "QUAL<$Qual || INFO/DP<$Dp"  APP/data/variants.bcftools/Filterring/mergefile/merge_"$types".vcf > APP/data/variants.bcftools/Filterring/mergefile/merge_filtered_"$types".vcf
 
     else
         let j=j+1
         Input=${tab[$j]}
-        prefix=$(echo $Input | cut -d'_' -f 1)
-        echo $prefix
-        bcftools view -v "$types" ${tab[$j]}  >> "$prefix"-"$types".vcf
+        bcftools view -v "$types" ${tab[$j]}  > APP/data/variants.bcftools/Filterring/mergefile/merge_"$types".vcf
         sleep 2
-        bcftools filter -e "QUAL<$Qual || INFO/DP<$Dp"  "$prefix"-"$types".vcf >> "$prefix"_filtered_"$types".vcf
+        bcftools filter -e "QUAL<$Qual || INFO/DP<$Dp"  APP/data/variants.bcftools/Filterring/mergefile/merge_"$types".vcf > APP/data/variants.bcftools/Filterring/mergefile/merge_filtered_"$types".vcf
         
     fi
      
  done
 
-mv APP/data/variants.bcftools/*_"$types".vcf APP/data/variants.bcftools/Filterring/filteredType
-cp APP/data/variants.bcftools/Filterring/filteredType/*_filtered_* APP/data/variants.bcftools/Filterring/
+rm -f APP/data/variants.bcftools/Filterring/mergefile/merge_"$types".vcf

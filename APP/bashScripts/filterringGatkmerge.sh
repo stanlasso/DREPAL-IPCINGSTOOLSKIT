@@ -1,12 +1,12 @@
 #!/bin/sh
 
 ###################################################
-#            FILTERING GATK version 1.1                #
+#            FILTERING MERGE GATK version 1.1                #
 ###################################################
 
 # initialisation
 
-rm -rf APP/data/gatkfile/Filterring/*.vcf*
+rm -f APP/data/gatkfile/Filterring/mergefile/*.vcf
 
 #echo $@
 Nbargument=$#
@@ -34,6 +34,8 @@ Qual=${var[-3]}
 Dp=${var[-2]}
 Pathogene=${var[-1]}
 
+echo ${tab[@]}
+
 # init
 j=0
 while [ "$j" -lt "${#tab[@]}" ]
@@ -42,10 +44,8 @@ while [ "$j" -lt "${#tab[@]}" ]
     then
         let j=j+1
         Input=${tab[$j]}
-        chemin=${Input:26}
-        id=$(echo $chemin | cut -d'_' -f 1)
 
-        gatk  SelectVariants -R $Pathogene -V APP/data/gatkfile/vcffile/"$id"_variants.vcf -O APP/data/gatkfile/Filterring/"$id"_ALLvariants.vcf -select "QUAL > $Qual && DP > $Dp" 
+        gatk  SelectVariants -R $Pathogene -V $Input -O APP/data/gatkfile/Filterring/mergefile/merge_ALLvariants.vcf -select "QUAL > $Qual && DP > $Dp" 
     
     elif [[ "$types" == "snps" ]];
     then
@@ -55,7 +55,7 @@ while [ "$j" -lt "${#tab[@]}" ]
         id=$(echo $chemin | cut -d'_' -f 1)
 
 
-        gatk SelectVariants -R $Pathogene -V APP/data/gatkfile/vcffile/"$id"_variants.vcf -O APP/data/gatkfile/Filterring/"$id"_filtered_snps.vcf -select-type SNP -select "QUAL > $Qual && DP > $Dp" 
+        gatk SelectVariants -R $Pathogene -V $Input -O APP/data/gatkfile/Filterring/mergefile/merge_filtered_snps.vcf -select-type SNP -select "QUAL > $Qual && DP > $Dp" 
     
     else
         let j=j+1
@@ -63,7 +63,7 @@ while [ "$j" -lt "${#tab[@]}" ]
         chemin=${Input:26}
         id=$(echo $chemin | cut -d'_' -f 1)
 
-       gatk SelectVariants -R $Pathogene -V APP/data/gatkfile/vcffile/"$id"_variants.vcf -O APP/data/gatkfile/Filterring/"$id"_INDELvariants.vcf -select-type INDEL -select "QUAL > $Qual && DP > $Dp" 
+       gatk SelectVariants -R $Pathogene -V $Input -O APP/data/gatkfile/Filterring/mergefile/merge_INDELvariants.vcf -select-type INDEL -select "QUAL > $Qual && DP > $Dp" 
     fi
      
 done
