@@ -1,5 +1,7 @@
 # DREPAL-IPCINGSTOOLKIT
 
+[Go to the Documentation](https://drepal-ipcitoolskit-doc.readthedocs.io/en/latest/)
+
 IPCINGSTOOLKIT is an NGS analysis toolkit.
 
 IPCINGSTOOLKIT was developed to aid in the analysis of next generation sequencing data. Users can do the following with this APP:
