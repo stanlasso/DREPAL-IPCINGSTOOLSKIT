@@ -8,4 +8,3 @@ mkdir -p APP/data/freebayesfile/{Filterring/mergefile,mergevcffile,metrics,txtfi
 mkdir -p APP/data/variants.bcftools/{Filterring/{MatriceSNPS,filteredType,MATRICE,mergefile},mergevcffile,metrics}
 mkdir -p APP/data/gatkfile/{Filterring/{MATRICE,MatriceSNPS,mergefile},metrics,recal,mergevcfile,vcffile,textfile}
 mkdir -p APP/data/Annoted/{AnnotatedFILEbyFILE/singlefilerepport,report}
-mkdir -p APP/data/Annoted/report
