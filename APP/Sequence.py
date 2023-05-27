@@ -9,6 +9,7 @@ import upload
 import subprocess
 import os
 from collections import Counter
+import glob
 
 
 
@@ -37,8 +38,8 @@ def sequence():
 
                 if data != []:
                     name = []
-                    for uploaded_file in data:                        
-                        if uploaded_file.type == 'application/gzip':
+                    for uploaded_file in data:
+                        if uploaded_file.type == 'application/gzip' or uploaded_file.type == 'application/x-gzip':
                             name.append(uploaded_file.name[:-11])
                             upload.save_uploadedfile(uploaded_file)
                             bashCmdgz = ['bash APP/bashScripts/gunzip.sh']
@@ -46,9 +47,21 @@ def sequence():
                             outex, errex = processex.communicate()
                             if errex:
                                 st.error('not gunzip file')
+                            else:
+                                gzfiles=glob.glob(upload.homeapp+"/APP/data/Datafastq/*.fastq")
+                                for el in gzfiles:
+                                    element=str(el).split("_")
+                                    if element[1]=="1.fastq" or element[1]=="2.fastq":
+                                        os.rename(el,element[0]+"_R"+element[1])
                         else:
                             name.append(uploaded_file.name[:-8])
                             upload.save_uploadedfile(uploaded_file)
+                            fastqfile=glob.glob(upload.homeapp+"/APP/data/Datafastq/*.fastq")
+                            for el in fastqfile:
+                                element=str(el).split("_")
+                                if element[1]=="1.fastq" or element[1]=="2.fastq":
+                                    os.rename(el,element[0]+"_R"+element[1])
+
                     nboccurence =Counter(name).most_common()
                     for el in nboccurence:
                         if el[1] !=2:
@@ -64,16 +77,47 @@ def sequence():
             chemin=st.text_input("Enter the directory path :")
             file=chemin
             if str(file) !="":
-                bashCmd = ["ls {} | wc -l ".format(str(chemin))]
+                if chemin[-1] == "/":
+                    chemin=chemin
+                else:
+                    chemin=chemin+"/"
+                str(chemin)    
+                bashCmd = ["ls {}*.fastq | wc -l ".format(str(chemin))]
                 process = subprocess.Popen(bashCmd, stdout=subprocess.PIPE, text=True, shell=True)
                 out, err = process.communicate()
                 st.write("Number of files counted {}".format(str(out)))
-                st.info("make sure your directory contains only Fastq files ")
-                if st.button("Deplacer"):
-                    bashCmd2 = ["mv {} {}".format(str(chemin+"/*.fastq"),str(user+"/APP/data/Datafastq/"))]
-                    process2 = subprocess.Popen(bashCmd2, stdout=subprocess.PIPE, text=True, shell=True)
-                    out, err = process2.communicate()
-            
+                if int(out) != 0 and int(out)%2 == 0:
+                    if st.button("Upload"):
+                        st.write("")
+                        occurencefile = []
+                        bashCmd2 = ["cp {} {}".format(str(chemin+"/*.fastq"),str(user+"/APP/data/Datafastq/"))]
+                        process2 = subprocess.Popen(bashCmd2, stdout=subprocess.PIPE, text=True, shell=True)
+                        out, err = process2.communicate()
+                        fastqfile=glob.glob(upload.homeapp+"/APP/data/Datafastq/*.fastq")
+                        if err == None:
+                            for el in fastqfile:
+                                element=str(el).split("_")
+                                if element[1]=="1.fastq" or element[1]=="2.fastq":
+                                    os.rename(el,element[0]+"_R"+element[1])
+
+                            fastqfile=glob.glob(upload.homeapp+"/APP/data/Datafastq/*.fastq")
+                            for el in fastqfile:
+                                element=str(el).split("_")
+                                occurencefile.append(element[0])
+                            
+                            nboccurence =Counter(occurencefile).most_common()
+                            for el in nboccurence:
+                                if el[1] !=2:
+                                    if os.path.exists(el[0]+"_R1.fastq"):
+                                        os.remove(el[0]+"_R1.fastq")
+                                    if os.path.exists(el[0]+"_R2.fastq"):
+                                        os.remove(el[0]+"_R2.fastq")
+                                    st.error("Error ! Missing file please re-import the pairs of sequence : "+str(el[0]).split("/")[-1])
+                                    continue
+                        st.success("End of Data Uploaded Process")
+                else:
+                    st.error("Parent folder empty or number of files uploaded is incomplete! Please check your parent folder.")
+
 
         st.markdown("""####  Downloading from a database""")
         st.text("")
@@ -95,9 +139,7 @@ def sequence():
                 for uploaded_file in data:
                     name.append(uploaded_file.name[:-6])
                     upload.save_uploadedfileref(uploaded_file)
-                st.write('LIST OF IMPORT FILES')
-                st.write(list(set(name)))
-                st.success("Reference import ...")
+                st.success("Imported Reference(s) ...")
    
 
 

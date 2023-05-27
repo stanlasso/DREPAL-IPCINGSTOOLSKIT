@@ -152,7 +152,6 @@ def appconnect():
     --fgp-gap-container: calc(var(--fgp-gap-parent,0px) - 1rem)  !important;
     align-items: flex-end;
     }
-    
     #root > div:nth-child(1) > div > div > div > div > section.main.css-1v3fvcr.eknhn3m1 > div > div:nth-child(1) > div:nth-child(7) > div:nth-child(1) > div:nth-child(14) > div:nth-child(1) > div > div > div.css-1r6slb0.e1tzin5v2 > div:nth-child(1) > div > div > button,
     #root > div:nth-child(1) > div > div > div > div > section.main.css-1v3fvcr.eknhn3m1 > div > div:nth-child(1) > div:nth-child(7) > div:nth-child(1) > div:nth-child(12) > div:nth-child(1) > div > div > div.css-1r6slb0.e1tzin5v2 > div:nth-child(1) > div > div > button
     {height: 48px;}
@@ -329,7 +328,7 @@ def appconnect():
         )
         # ACCEUIL FRAME
         hdd = psutil.disk_usage('/')
-        labels = ["utilisé (GB)", "libre (GB)"]
+        labels = ["used (GB)", "free (GB)"]
         values = [round(hdd.used / (2**30), 0), round(hdd.free / (2**30), 0)]
         st.sidebar.markdown("## Resource Disk")
         # Use `hole` to create a donut-like pie chart

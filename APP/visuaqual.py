@@ -16,29 +16,6 @@ user = str(os.getcwd())
 
 # script de visualisation avec fastqc
 def visualisation():
-    st.markdown('''
-    <style>
-  
-     #root > div:nth-child(1) > div > div > div > div > section.main.css-1v3fvcr.eknhn3m1 > div > div:nth-child(1) > div:nth-child(7) > div:nth-child(1) > div:nth-child(11) > div:nth-child(1) > div.css-1tkrxl5.e1tzin5v3 > div > div.css-1r6slb0.e1tzin5v2 > div:nth-child(1) > div > div > button{
-    height: 3rem; 
-    }
-    #root > div:nth-child(1) > div > div > div > div > section.main.css-1v3fvcr.eknhn3m1 > div > div:nth-child(1) > div:nth-child(7) > div:nth-child(1) > div:nth-child(17) > div:nth-child(1) > div:nth-child(6) > div:nth-child(1) > div:nth-child(2) > div > button
-    {
-       height: 3rem;
-       width: 7rem; 
-    }
-    #root > div:nth-child(1) > div > div > div > div > section.main.css-1v3fvcr.eknhn3m1 > div > div:nth-child(1) > div:nth-child(7) > div:nth-child(1) > div:nth-child(9) > div > button
-      {
-       height: 3rem;
-       width:6rem;
-       margin-bottom:4rem;
-       margin-top: 1.2rem;     
-      }
-    </style>
-    
-    ''',unsafe_allow_html=True)
-   
-
     st.text("")
     # st.markdown(
     #    """## **Bienvenu dans l'option d'importation et de téléchargement de sequence genomique.**""")
@@ -55,15 +32,15 @@ def visualisation():
         unsafe_allow_html=True)
     st.write("")
     # verification de l'existence du programme fastqc
-    st.markdown("""
-    <h4><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="26" height="26" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M13.53 22H10c-.25 0-.46-.18-.5-.42l-.37-2.65c-.63-.25-1.17-.59-1.69-.99l-2.49 1.01c-.22.08-.49 0-.61-.22l-2-3.46a.493.493 0 0 1 .12-.64l2.11-1.66c-.04-.32-.07-.64-.07-.97s.03-.66.07-1L2.46 9.37a.493.493 0 0 1-.12-.64l2-3.46c.12-.22.39-.31.61-.22l2.49 1c.52-.39 1.06-.73 1.69-.98l.37-2.65c.04-.24.25-.42.5-.42h4c.25 0 .46.18.5.42l.37 2.65c.63.25 1.17.59 1.69.98l2.49-1c.22-.09.49 0 .61.22l2 3.46c.12.22.07.49-.12.64L19.43 11c.04.34.07.67.07 1v.19c-.5-.12-1-.19-1.5-.19c-.92 0-1.78.21-2.56.58c.03-.19.06-.38.06-.58c0-1.93-1.57-3.5-3.5-3.5S8.5 10.07 8.5 12s1.57 3.5 3.5 3.5c.2 0 .39-.03.58-.06a5.97 5.97 0 0 0 .95 6.56M16 15v6l5-3l-5-3z" fill="currentColor"/></svg>&nbsp;Fastqc Output Generation</h4>
-    """
-    ,unsafe_allow_html=True)
     program = "fastqc"
-    process = subprocess. run(
+    process = subprocess.run(
         ['which', program], capture_output=True, text=True)
+    #verification de trim-galore
+    program2 = "trim_galore"
+    process2 = subprocess.run(
+        ['which', program2], capture_output=True, text=True)
     # au cas ou le programme existe
-    if process.returncode == 0:
+    if process.returncode == 0 and process2.returncode == 0:
         #activation de la section ci-dessous
         """
         #########
@@ -76,46 +53,40 @@ def visualisation():
         grace a subprocess. si ce denier est non vide on fait appel au script de generation de fichier .html grâce a fastqc ...
 
         """
-        active=False
+        
         st.write(" ")
-        if st.button("Start"):
-            active=True
-            file = user+"/APP/data/Datafastq/"
-            if os.path.exists(r'{}'.format(file)) == True:
-                bashCmd = ["ls APP/data/Datafastq/*fastq | wc -l"]
-                process = subprocess.Popen(bashCmd, stdout=subprocess.PIPE, text=True, shell=True)
-                out, err = process.communicate()
-                if err == None:
-                    if int(out) != 0:
+        file = user+"/APP/data/Datafastq/"
+        if os.path.exists(r'{}'.format(file)) == True:
+            bashCmd = ["ls APP/data/Datafastq/*fastq | wc -l"]
+            process = subprocess.Popen(bashCmd, stdout=subprocess.PIPE, text=True, shell=True)
+            out, err = process.communicate()
+            if err == None:
+                if int(out) != 0:
+                    if st.button("Start"):
                         st.markdown(
-                            """<p style="color:rgb(22, 22, 22);font-weight:600;font-size:14px;">Number of sequences :&nbsp;<strong>{}</strong></p>""".format(str(out)),
+                            """<p style="margin-top:12px;color:rgb(22, 22, 22);font-weight:600;font-size:14px;">Number of sequences :&nbsp;<strong>{}</strong></p>""".format(str(out)),
                             unsafe_allow_html=True)
-                        seqnombre=int(out)
                         bashCmd = ["bash  APP/bashScripts/fastqc.sh  APP/data/Datafastq/*.fastq"]
                         process = subprocess.Popen(bashCmd, stdout=subprocess.PIPE, text=True,shell=True)
                         out, err = process.communicate()
                         if err == None:
                             st.success("Treatment Completed Successfully !!!")
-                    else:
-                        st.markdown(
-                            """<p style="color:rgb(250, 6, 47);"><i class="fa   fa-exclamation-triangle"></i>&nbsp; No sequences found !!: </p>""",
-                             unsafe_allow_html=True)
+                else:
+                    st.error("No files found on which to apply visualization with Fastqc! Import sequences.")
 
         file = user+"/APP/data/Datafastq/Fastqc"
         if os.path.exists(r'{}'.format(file)) == True:
             bashCmd = ["ls APP/data/Datafastq/Fastqc/ | wc -l"]
             process = subprocess.Popen(bashCmd, stdout=subprocess.PIPE, text=True, shell=True)
             out, err = process.communicate()
-            st.markdown(""" 
-            <h5><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="26" height="26" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M16.5 12c2.5 0 4.5 2 4.5 4.5c0 .88-.25 1.71-.69 2.4l3.08 3.1L22 23.39l-3.12-3.07c-.69.43-1.51.68-2.38.68c-2.5 0-4.5-2-4.5-4.5s2-4.5 4.5-4.5m0 2a2.5 2.5 0 0 0-2.5 2.5a2.5 2.5 0 0 0 2.5 2.5a2.5 2.5 0 0 0 2.5-2.5a2.5 2.5 0 0 0-2.5-2.5M9 4l2 2h8a2 2 0 0 1 2 2v3.81A6.48 6.48 0 0 0 16.5 10a6.5 6.5 0 0 0-6.5 6.5c0 1.29.37 2.5 1 3.5H3a2 2 0 0 1-2-2V6c0-1.11.89-2 2-2h6z" fill="currentColor"/></svg>&nbsp;View Analysis Files </h4>
-            """
-            ,unsafe_allow_html=True)
-
             if err == None:
                 if int(out) != 0:
+                    st.markdown(""" 
+                        <h5 style="margin-top:25px;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="26" height="26" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M16.5 12c2.5 0 4.5 2 4.5 4.5c0 .88-.25 1.71-.69 2.4l3.08 3.1L22 23.39l-3.12-3.07c-.69.43-1.51.68-2.38.68c-2.5 0-4.5-2-4.5-4.5s2-4.5 4.5-4.5m0 2a2.5 2.5 0 0 0-2.5 2.5a2.5 2.5 0 0 0 2.5 2.5a2.5 2.5 0 0 0 2.5-2.5a2.5 2.5 0 0 0-2.5-2.5M9 4l2 2h8a2 2 0 0 1 2 2v3.81A6.48 6.48 0 0 0 16.5 10a6.5 6.5 0 0 0-6.5 6.5c0 1.29.37 2.5 1 3.5H3a2 2 0 0 1-2-2V6c0-1.11.89-2 2-2h6z" fill="currentColor"/></svg>&nbsp;View Analysis Files </h4>
+                        """,unsafe_allow_html=True)
                     out=int(out)//2
                     st.markdown(
-                        """<p style="color:rgb(22, 22, 22);font-weight:600;font-size:14px;">Searchable html link :&nbsp;<strong>{}</strong></p>""".format(str(out))
+                        """<p style="color:rgb(22, 22, 22);font-weight:600;font-size:14px;">Searchable html repport link :&nbsp;<strong>{}</strong></p>""".format(str(out))
                         ,unsafe_allow_html=True)
                     filenames = os.listdir(file)
                     html = ["---List of link Fastqc Repport"]
@@ -221,8 +192,9 @@ def qualtity():
                                                 if err3 == None:
                                                     with st.container():
                                                         #st.write(out)
-                                                        st.success('Effectuer Avec Succès')
-                                                        st.info("Relancé l'opération de visualisation pour observé les effets du trimming !!")
+                                                        st.success('Carry out Successfully')
+                                                        st.info("Rerun the visualization operation to observe the effects of trimming !!")
                                     else:
-                                        st.text('Environnement non actif')
-
+                                        st.text('Environment not active')
+                else:
+                    st.error("No files found on which to apply trimming operation with Trim-galore! Import sequences.")

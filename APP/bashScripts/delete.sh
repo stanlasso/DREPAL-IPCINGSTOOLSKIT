@@ -7,6 +7,7 @@ rm -f APP/data/Datafastq/Fastqc/*.zip
 rm -f APP/data/Datafastq/Fastqc/*.html
 rm -f APP/data/Datafastq/KDSD/*
 rm -f APP/data/Datafastq/ResQC/*
+rm -f APP/data/Datafastq/*
 rm -f APP/data/Datafastq/unmapped/*.fastq
 rm -f APP/data/variants.bcftools/Filterring/*.vcf
 rm -f APP/data/variants.bcftools/*.vcf

@@ -1,14 +1,13 @@
 import subprocess
-from h11 import Data
 import streamlit as st
 import os
+import glob
 
-
+homeapp=str(os.getcwd())
 def Management():
     st.markdown("""
     <style>
     </style>
-    
     """, unsafe_allow_html=True)
     user = str(os.getcwd())
     # pathdata = user+"/"+"APP/data/"
@@ -24,4 +23,16 @@ def Management():
         if errex:
             st.error('Delete Probleme')
 
-
+    allfastq=glob.glob(homeapp+"/APP/data/Datafastq/*.fastq")
+    raws_fastq = []
+    for element in allfastq:
+        raws_fastq.append(element.split("/")[-1][:-9])
+    elementdelete=st.multiselect("Select the raws fastq files you want to delete",sorted(set(raws_fastq)))
+    if len(elementdelete) != 0:
+        st.warning(f"Do you really wont to delete files with as the raw(s) file(s) id")
+    if elementdelete !=[]:
+        if st.button("Delete"): 
+            for el in elementdelete:
+                namefastq=glob.glob(homeapp+f"/APP/data/Datafastq/{el}*")
+                for fastq in namefastq:
+                    os.remove(fastq)

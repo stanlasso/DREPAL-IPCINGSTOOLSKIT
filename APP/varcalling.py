@@ -349,7 +349,7 @@ def varcalling():
             colselect, colbtn = st.columns([2, 1])
             with colselect:
                 optionselect = st.selectbox(
-                    'Download', sorted(list(set(vcf))))
+                    'Download File', sorted(list(set(vcf))))
             with colbtn:
                 if optionselect != "---Fichier vcf":
                     with open(os.path.join(chromosomefile, optionselect), "rb") as file:

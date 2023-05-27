@@ -46,7 +46,7 @@ def indexRef():
                         ,unsafe_allow_html=True)
                   
                     filenames = os.listdir(file)
-                    Refereces = ["-- Choice of a Reference"]
+                    Refereces = ["---Choice of a Reference"]
                     for element in filenames:
                         if ".bwt" not in str(element) and ".pac" not in str(element) and ".ann" not in str(element) and ".sa" not in str(element) and ".amb" not in str(element) and ".fai" not in str(element) and ".dict" not in str(element):
                             Refereces.append(element)
@@ -58,15 +58,15 @@ def indexRef():
 
                     colselctbox,colbtnindex = st.columns([3,1])
                     with colselctbox:
-                        option = st.selectbox('Index',list(set(Refereces) - set(index)))
+                        option = st.selectbox('Index',sorted(list(set(Refereces) - set(index))))
                     with colbtnindex:
-                        if st.button("Index") and option !="Choice of a Reference":
+                        if st.button("Index") and option != "---Choice of a Reference":
                             bashCmd=["bash APP/bashScripts/index.sh {}".format("APP/data/Reference/"+str(option))]
                             process = subprocess.Popen(bashCmd, stdout=subprocess.PIPE, text=True, shell=True)
                             out, err2 = process.communicate()
                             if err2 == None:
                                 active=1
-                    
+
 
                     st.write('')
                     with st.container():
