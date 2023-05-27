@@ -92,19 +92,19 @@ def subtrac():
                                                 st.success(
                                                     'Carry out Successfully')
                                         else:
-                                            st.write("PROBLEM !!")
+                                            st.errorwrite("PROBLEM !!")
                                     else:
-                                        st.write("PROBLEM !!")
+                                        st.error("PROBLEM !!")
                                 else:
-                                    st.write("PROBLEM !!")
+                                    st.error("PROBLEM !!")
 
                         else:
-                            st.write("PROBLEM !!")
+                            st.error("PROBLEM !!")
                 else:
-                    st.write("PROBLEM !!")
+                    st.error("No file was found on which to apply this operation! Import reference.")
             else:
-                st.write("PROBLEM !!")
+                st.error("PROBLEM !")
         else:
-            st.write("PROBLEM !!")
+            st.error("PROBLEM !")
     else:
-        st.write("PROBLEM !!")
+        st.error("PROBLEM !")

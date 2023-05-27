@@ -94,8 +94,8 @@ def indexRef():
                         st.markdown("""<p>Press &nbsp;  <Kbd style="background:black;">R</Kbd> &nbsp;to refresh the list</p>""",unsafe_allow_html=True)
                         if active==1:
                             st.success("Carry out Successfully !!")
-
-
+                else:
+                    st.error("No file was found on which to apply the reference indexing operation with Bwa index! Import reference.")
 
                             
 
